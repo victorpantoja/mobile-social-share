@@ -1,4 +1,4 @@
-package com.victorpantoja;
+package com.victorpantoja.mss.screen;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +15,8 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
+import com.victorpantoja.mss.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
@@ -28,7 +30,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class main extends Activity implements OnClickListener {
+public class StatusUpdateScreen extends Activity implements OnClickListener {
 	static final String TAG = "mss";
 	EditText textToSend;
 
