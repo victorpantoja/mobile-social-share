@@ -7,16 +7,20 @@
 
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name">
-		<activity android:name=".screen.MainScreen" android:label="@string/app_name">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-		<activity android:name=".screen.StatusUpdateScreen" />
-		<activity android:name=".screen.MyPlacesScreen" />
+        <activity android:name=".MSS"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
 		<activity android:name=".screen.FriendsScreen" />
-
+        <activity android:name=".screen.LoginScreen" />
+		<activity android:name=".screen.MainScreen" />
+		<activity android:name=".screen.MyPlacesScreen" />
+		<activity android:name=".screen.StatusUpdateScreen" />
+		
 		<receiver android:name=".widget.MssWidgetProvider">
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
