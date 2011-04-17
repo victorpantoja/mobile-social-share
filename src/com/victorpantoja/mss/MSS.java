@@ -3,19 +3,8 @@
  */
 package com.victorpantoja.mss;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
 import com.victorpantoja.mss.screen.LoginScreen;
+import com.victorpantoja.mss.screen.MainScreen;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -57,8 +46,6 @@ public class MSS extends Activity implements Runnable {
 	public void run() {
 		SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", 0);
 		SharedPreferences.Editor editor = pref.edit();
-		
-		Log.d(TAG, "running");
 
 		editor.putString("pass", "");
 		editor.commit();
@@ -96,6 +83,7 @@ public class MSS extends Activity implements Runnable {
 					if (tryAuthenticate(login, pass))
 					{
 						Toast.makeText(getApplicationContext(), "Autenticado", Toast.LENGTH_SHORT).show();
+						startActivity(new Intent(getApplicationContext(),MainScreen.class));
 	
 					}
 					else{

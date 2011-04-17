@@ -3,5 +3,7 @@
     <string name="hello">Hello World, main!</string>
     <string name="app_name">Mobile Social Share</string>
     <string name="information">What r u doing?</string>
-    <string name="create_account">New Account</string>
+    <string name="create_account">Create</string>
+    <string name="lastName">Last Name</string>
+    <string name="firstName">First Name</string>
 </resources>

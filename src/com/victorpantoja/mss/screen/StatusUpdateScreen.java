@@ -16,6 +16,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
 import com.victorpantoja.mss.R;
+import com.victorpantoja.mss.util.Util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -62,7 +63,7 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 		        Log.i(TAG, "textToSend: "+textToSend);
 		    	//TODO - tratar os parametros
 				String url = "http://192.168.0.154:9080/context?location="+location_str+"&text="+textToSend.getText().toString();
-				String result = queryRESTurl(url);
+				String result = Util.queryRESTurl(url);
 		    	
 				Toast.makeText(getApplicationContext(), "Result: "+result, Toast.LENGTH_SHORT).show();
 			}
@@ -79,62 +80,5 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 		// Register the listener with the Location Manager to receive location updates
 		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 		  
-	}
-	
-	private String queryRESTurl(String url) {  
-		HttpParams params = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(params, 10 * 1000);
-		HttpConnectionParams.setSoTimeout(params, 10 * 1000);
-		HttpConnectionParams.setTcpNoDelay(params, true);
-		HttpConnectionParams.setStaleCheckingEnabled(params, true);
-		
-		HttpClient httpclient = new DefaultHttpClient(params);
-
-		HttpGet httpget = new HttpGet(url);  
-		HttpResponse response;
-
-		try {
-			Log.i(TAG, "Querying URL:" + url);
-			response = httpclient.execute(httpget);  
-			// Log.i(TAG, "Status:[" + response.getStatusLine().toString() + "]");  
-			HttpEntity entity = response.getEntity();  
-
-			if (entity != null) {  
-
-				InputStream instream = entity.getContent();  
-				String result = convertStreamToString(instream);  
-				// Log.i(TAG, "Result of converstion: [" + result + "]");  
-
-				instream.close();  
-				return result;  
-			}  
-		} catch (ClientProtocolException e) {  
-			Log.e(TAG, "There was a protocol based error", e);  
-		} catch (IOException e) {  
-			Log.e(TAG, "There was an IO Stream related error", e);  
-		}
-		return null;  
-	}
-	
-	private String convertStreamToString(InputStream is) {
-
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-		StringBuilder sb = new StringBuilder();
-		String line = null;
-
-		try {
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return sb.toString();
 	}
 }

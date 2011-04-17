@@ -6,6 +6,7 @@ package com.victorpantoja.mss.screen;
 import com.victorpantoja.mss.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,7 @@ import android.widget.Toast;
  * @author victor.pantoja
  *
  */
-public class LoginScreen  extends Activity implements OnClickListener
+public class LoginScreen  extends Activity
 {
 	protected static final String TAG = "LoginScreen";
 	private EditText textNome, textPass;
@@ -45,22 +46,35 @@ public class LoginScreen  extends Activity implements OnClickListener
 			textPass.requestFocus();
 		}
 
-		button.setOnClickListener(this);
-	}
-
-	@Override
-	public void onClick(View v) {
-		SharedPreferences pref = getSharedPreferences(TAG, MODE_PRIVATE);
-
-		SharedPreferences.Editor editor = pref.edit();
+		button.setOnClickListener(loginListener);
 		
-		editor.putString("login", textNome.getText().toString());
-		editor.putString("pass", textPass.getText().toString());
-
-		Log.i(TAG,"Status salvo para: " + textNome.getText().toString());
-
-		editor.commit();
-		Toast.makeText(getApplicationContext(), "Autenticando...", Toast.LENGTH_SHORT).show();
-		finishFromChild(getParent());
+		Button btnCreateAccount = (Button) findViewById(R.id.btnCreateAccount);
+		btnCreateAccount.setOnClickListener(createAccountListener);
 	}
+	
+	private OnClickListener loginListener = new OnClickListener() {
+	    public void onClick(View v) {
+			SharedPreferences pref = getSharedPreferences(TAG, MODE_PRIVATE);
+
+			SharedPreferences.Editor editor = pref.edit();
+			
+			editor.putString("login", textNome.getText().toString());
+			editor.putString("pass", textPass.getText().toString());
+
+			Log.i(TAG,"Status salvo para: " + textNome.getText().toString());
+
+			editor.commit();
+			Toast.makeText(getApplicationContext(), "Autenticando...", Toast.LENGTH_SHORT).show();
+			finishFromChild(getParent());
+		}
+	};
+	
+	private OnClickListener createAccountListener = new OnClickListener() {
+	    public void onClick(View v) {
+
+			startActivity(new Intent(getApplicationContext(), CreateAccountScreen.class));
+
+			finishFromChild(getParent());
+		}
+	};
 }
