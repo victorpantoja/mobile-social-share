@@ -20,6 +20,7 @@
         <activity android:name=".screen.LoginScreen" />
 		<activity android:name=".screen.MainScreen" />
 		<activity android:name=".screen.MyPlacesScreen" />
+		<activity android:name=".screen.MyInformationScreen" />
 		<activity android:name=".screen.StatusUpdateScreen" />
 		
 		<receiver android:name=".widget.MssWidgetProvider">

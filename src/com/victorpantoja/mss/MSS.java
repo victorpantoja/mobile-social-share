@@ -3,8 +3,12 @@
  */
 package com.victorpantoja.mss;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.victorpantoja.mss.screen.LoginScreen;
 import com.victorpantoja.mss.screen.MainScreen;
+import com.victorpantoja.mss.util.Util;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -79,12 +83,16 @@ public class MSS extends Activity implements Runnable {
 					SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", 0);
 					String login = pref.getString("login", "not_found");
 					String pass = pref.getString("pass", "not_found");
+					String auth = pref.getString("auth", "not_found");
+					
+					if(login.equals("not_found") || pass.equals("not_found")){
+						handler.sendMessageDelayed(Message.obtain(handler, ASKLOGIN, msg.obj), DELAY);
+						break;
+					}
 	
-					if (tryAuthenticate(login, pass))
+					if (!auth.equals("not_found") || tryAuthenticate(login, pass))
 					{
-						Toast.makeText(getApplicationContext(), "Autenticado", Toast.LENGTH_SHORT).show();
 						startActivity(new Intent(getApplicationContext(),MainScreen.class));
-	
 					}
 					else{
 						Toast.makeText(getApplicationContext(), "Falhou!!!", Toast.LENGTH_SHORT).show();
@@ -100,14 +108,38 @@ public class MSS extends Activity implements Runnable {
 	
 	private boolean tryAuthenticate (String login, String pass)
 	{
-		try {
-			return true;
-		}
-
-		catch (Exception e)
+		String url = Util.url_login+"?username="+login+"&password="+pass;
+		
+		String result = Util.queryRESTurl(url);
+		
+		if(result.equals(""))
 		{
-			e.printStackTrace();
-			Log.e(TAG, e.getMessage());
+			Toast.makeText(getApplicationContext(), "Internal Error.", Toast.LENGTH_SHORT).show();
+			
+			return false;
+		}
+		
+		try{
+			JSONObject json = new JSONObject(result);
+									
+			if (json.getString("status").equals("ok"))
+			{
+				SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", MODE_PRIVATE);
+
+				SharedPreferences.Editor editor = pref.edit();
+				
+				editor.putString("auth", json.getString("msg"));
+				
+				editor.commit();
+				
+				return true;
+			}
+			else{
+				Toast.makeText(getApplicationContext(), json.getString("msg"), Toast.LENGTH_SHORT).show();
+			}
+		}  
+		catch (JSONException e) {  
+			Log.e("JSON", "There was an error parsing the JSON", e);  
 		}
 
 		return false;

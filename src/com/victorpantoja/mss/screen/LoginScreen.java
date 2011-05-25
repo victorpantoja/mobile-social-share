@@ -41,8 +41,11 @@ public class LoginScreen  extends Activity
 		textPass = (EditText) findViewById(R.id.campoSenha);
 		
 		String login = pref.getString("login", "not_found");
+		String pass = pref.getString("pass", "not_found");
+
 		if (!login.equals("not_found")) {
 			textNome.setText(login);
+			textPass.setText(pass);
 			textPass.requestFocus();
 		}
 
@@ -54,17 +57,16 @@ public class LoginScreen  extends Activity
 	
 	private OnClickListener loginListener = new OnClickListener() {
 	    public void onClick(View v) {
-			SharedPreferences pref = getSharedPreferences(TAG, MODE_PRIVATE);
+			SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", MODE_PRIVATE);
 
 			SharedPreferences.Editor editor = pref.edit();
 			
 			editor.putString("login", textNome.getText().toString());
 			editor.putString("pass", textPass.getText().toString());
 
-			Log.i(TAG,"Status salvo para: " + textNome.getText().toString());
+			Log.i(TAG,"Status salvo para: " + textNome.getText().toString() + ", password: "+textPass.getText().toString());
 
 			editor.commit();
-			Toast.makeText(getApplicationContext(), "Autenticando...", Toast.LENGTH_SHORT).show();
 			finishFromChild(getParent());
 		}
 	};

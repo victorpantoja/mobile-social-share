@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -28,6 +30,19 @@ public class Util {
 	
 	static final String TAG = "mss";
 	
+	private static final String server_name = "http://192.168.0.154:9080";
+	public static final String url_send_context = "/context";	
+	public static final String url_login = "/login";
+	public static final String url_create_acount = "/login/create";
+	public static final String url_create_friendship = "/friendship/create";
+	public static final String url_get_friend = "/friendship/get.json";
+	public static final String url_remove_friendship = "/friendship/remove";
+	public static final String url_send_invite = "/invite/send";
+	public static final String url_accept_invite = "/invite/accept";
+	public static final String url_get_invites = "/invite/get.json";
+	public static final String url_send_email_envites = "/invite/email/send";
+	public static final String url_accept_email_envite = "/invite/email/accept";
+	
 	public static String queryRESTurl(String url) {  
 		HttpParams params = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(params, 10 * 1000);
@@ -37,7 +52,7 @@ public class Util {
 		
 		HttpClient httpclient = new DefaultHttpClient(params);
 
-		HttpGet httpget = new HttpGet(url);  
+		HttpGet httpget = new HttpGet(server_name+url);  
 		HttpResponse response;
 
 		try {
@@ -83,5 +98,24 @@ public class Util {
 			}
 		}
 		return sb.toString();
+	}
+	
+	public static String md5(String s) {
+	    try {
+	        // Create MD5 Hash
+	        MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+	        digest.update(s.getBytes());
+	        byte messageDigest[] = digest.digest();
+	        
+	        // Create Hex String
+	        StringBuffer hexString = new StringBuffer();
+	        for (int i=0; i<messageDigest.length; i++)
+	            hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+	        return hexString.toString();
+	        
+	    } catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	    }
+	    return "";
 	}
 }

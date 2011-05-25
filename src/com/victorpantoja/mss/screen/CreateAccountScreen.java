@@ -3,7 +3,6 @@
  */
 package com.victorpantoja.mss.screen;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,7 +11,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,7 +47,7 @@ public class CreateAccountScreen extends Activity implements OnClickListener{
 		mProgressDlg = ProgressDialog.show(CreateAccountScreen.this, "", "Loading. Please wait...", true);
 		mProgressDlg.show();
 				
-		String url = "http://192.168.0.154:8080/login/create?username="+textUsername.getText()+"&firstName="+textFirstName.getText()+"&lastName="+textLastName.getText();
+		String url = Util.url_create_acount+"?username="+textUsername.getText()+"&firstName="+textFirstName.getText()+"&lastName="+textLastName.getText();
 		
 		String result = Util.queryRESTurl(url);
 		
@@ -74,6 +72,7 @@ public class CreateAccountScreen extends Activity implements OnClickListener{
 			if (json.getString("status").equals("ok"))
 			{
 				Toast.makeText(getApplicationContext(), json.getString("msg"), Toast.LENGTH_SHORT).show();
+				finishFromChild(getParent());
 			}
 			else{
 				Toast.makeText(getApplicationContext(), json.getString("msg"), Toast.LENGTH_SHORT).show();
