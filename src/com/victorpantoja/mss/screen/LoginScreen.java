@@ -66,11 +66,10 @@ public class LoginScreen  extends Activity
 			
 			editor.putString("login", textNome.getText().toString());
 			editor.putString("pass", textPass.getText().toString());
-			editor.putString("auth", auth);
-			
-			editor.commit();
 
-			startActivity(new Intent(getApplicationContext(),MainScreen.class));
+			Intent mainScreen = new Intent(getApplicationContext(),MainScreen.class);
+			mainScreen.putExtra("auth", auth);
+			startActivity(mainScreen);
 		}
 	};
 	

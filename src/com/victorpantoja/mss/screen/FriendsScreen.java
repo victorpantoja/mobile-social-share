@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.victorpantoja.mss.R;
@@ -28,6 +29,8 @@ public class FriendsScreen extends Activity {
         
         setContentView(R.layout.friends);
         
+        EditText textFriends = (EditText) findViewById(R.id.textFriend);
+        
         Bundle extras = getIntent().getExtras();
         
         auth = extras.getString("auth");
@@ -44,7 +47,7 @@ public class FriendsScreen extends Activity {
 			try{
 				JSONObject json = new JSONObject(result);
 				Toast.makeText(getApplicationContext(), json.getJSONArray("friend").getString(0), Toast.LENGTH_SHORT).show();
-
+				textFriends.setText("You have "+json.getJSONArray("friend").length()+" friends.");
 			}  
 			catch (JSONException e) {
 				Log.e("JSON", "There was an error parsing the JSON", e);  

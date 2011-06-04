@@ -2,10 +2,10 @@
 <LinearLayout android:id="@+id/linearLayout1" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
 
   	<TextView
+  		android:id="@+id/textFriend"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:textSize="13sp"
-		android:textColor="#fff"
-		android:text="You have X friends."/>
+		android:textColor="#fff"/>
 
 </LinearLayout>

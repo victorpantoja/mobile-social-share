@@ -1,20 +1,5 @@
 package com.victorpantoja.mss.screen;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-
 import com.victorpantoja.mss.R;
 import com.victorpantoja.mss.util.Util;
 
@@ -28,27 +13,40 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class StatusUpdateScreen extends Activity implements OnClickListener {
 	static final String TAG = "mss";
-	EditText textToSend;
+	private CheckBox mTwitterBtn;
+	private EditText reviewEdit;
+	private String auth = "";
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.post);
         
-        textToSend = (EditText)findViewById(R.id.editText1);
+        Bundle extras = getIntent().getExtras();
         
-        Button button = (Button)findViewById(R.id.button1);
-        button.setOnClickListener(this);
+        auth = extras.getString("auth");
+        
+        reviewEdit = (EditText)findViewById(R.id.review);
+        Button postButton = (Button)findViewById(R.id.postButton);
+        postButton.setOnClickListener(this);
     }
 
 	@Override
 	public void onClick(View v) {
+		
+		String review = reviewEdit.getText().toString();
+		
+		if (review.equals("")) return;
+		
+		mTwitterBtn	= (CheckBox) findViewById(R.id.twitterCheck);
+		
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		
 		LocationListener locationListener = new LocationListener() {
@@ -60,9 +58,10 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 		    	
 		    	String location_str = location.getLatitude()+","+location.getLongitude();
 
-		        Log.i(TAG, "textToSend: "+textToSend);
+		        Log.i(TAG, "textToSend: "+reviewEdit);
 		    	//TODO - tratar os parametros
-				String url = "http://192.168.0.154:9080/context?location="+location_str+"&text="+textToSend.getText().toString();
+		        
+				String url = Util.url_send_context+"?location="+location_str+"&text="+reviewEdit.getText().toString()+"&auth="+auth;
 				String result = Util.queryRESTurl(url);
 		    	
 				Toast.makeText(getApplicationContext(), "Result: "+result, Toast.LENGTH_SHORT).show();

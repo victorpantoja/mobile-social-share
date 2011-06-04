@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:padding="10dp">
+		
+	<EditText
+		android:id="@+id/review"
+		android:layout_width="250dp"
+		android:layout_height="100dp"
+		android:hint="Write your review"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="left"
+		android:textSize="13sp"
+		android:textColor="#fff"
+		android:text="Share to:"/>
+
+	<TableLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/listSocialNetworks">
+		<TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+			<CheckBox
+				android:id="@+id/twitterCheck"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_marginLeft="5dp"
+				android:textSize="14sp"
+				android:clickable="true"
+				android:focusable="true" 
+				android:button="@drawable/twitter_check"/>
+				
+			<CheckBox
+				android:id="@+id/facebookCheck"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_marginLeft="5dp"
+				android:textSize="14sp"
+				android:clickable="true"
+				android:focusable="true" 
+				android:button="@drawable/facebook_check"/>
+		</TableRow>
+	</TableLayout>		
+
+	<Button
+		android:id="@+id/postButton"
+		android:layout_marginTop="15dp"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="    Submit    "/>
+		
+</LinearLayout>
