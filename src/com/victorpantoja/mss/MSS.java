@@ -48,11 +48,11 @@ public class MSS extends Activity implements Runnable {
 
 	@Override
 	public void run() {
-		SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", 0);
+		/*SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", 0);
 		SharedPreferences.Editor editor = pref.edit();
 
 		editor.putString("pass", "");
-		editor.commit();
+		editor.commit();*/
 		
 		handler.sendMessageDelayed(Message.obtain(handler, ASKLOGIN, this), DELAY);
 	}

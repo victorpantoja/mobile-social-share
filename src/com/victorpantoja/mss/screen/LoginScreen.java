@@ -30,7 +30,7 @@ public class LoginScreen  extends Activity
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 		
-		SharedPreferences pref = getSharedPreferences(TAG, MODE_PRIVATE);
+		SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", MODE_PRIVATE);
 		
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         
@@ -67,6 +67,7 @@ public class LoginScreen  extends Activity
 			Log.i(TAG,"Status salvo para: " + textNome.getText().toString() + ", password: "+textPass.getText().toString());
 
 			editor.commit();
+			
 			finishFromChild(getParent());
 		}
 	};
