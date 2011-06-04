@@ -19,8 +19,12 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * @author victor.pantoja
@@ -42,7 +46,8 @@ public class Util {
 	public static final String url_get_invites = "/invite/get.json";
 	public static final String url_send_email_envites = "/invite/email/send";
 	public static final String url_accept_email_envite = "/invite/email/accept";
-	
+	public static final String url_get_user = "/user.json";
+
 	public static String queryRESTurl(String url) {  
 		HttpParams params = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(params, 10 * 1000);
@@ -117,5 +122,35 @@ public class Util {
 	        e.printStackTrace();
 	    }
 	    return "";
+	}
+	
+	
+	public static String tryAuthenticate (String login, String pass)
+	{
+		String url = url_login+"?username="+login+"&password="+pass;
+		
+		String result = queryRESTurl(url);
+		
+		if(result.equals(""))
+		{			
+			return "";
+		}
+		
+		try{
+			JSONObject json = new JSONObject(result);
+									
+			if (json.getString("status").equals("ok"))
+			{	
+				return json.getString("msg");
+			}
+			else{
+				return "";
+			}
+		}  
+		catch (JSONException e) {  
+			Log.e("JSON", "There was an error parsing the JSON", e);  
+		}
+
+		return "";
 	}
 }

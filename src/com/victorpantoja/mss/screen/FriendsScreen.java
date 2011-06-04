@@ -23,23 +23,15 @@ public class FriendsScreen extends Activity {
 	private String auth = "";
 	
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onResume() {
+        super.onResume();
+        
         setContentView(R.layout.friends);
         
         Bundle extras = getIntent().getExtras();
         
         auth = extras.getString("auth");
                 
-		Toast.makeText(getApplicationContext(), "Auth: "+auth, Toast.LENGTH_SHORT).show();
-    }
-    
-    @Override
-    protected void onResume() {
-        super.onResume();
-        
-		Toast.makeText(getApplicationContext(), "Auth: "+auth, Toast.LENGTH_SHORT).show();
-		
 		String url = Util.url_get_friend+"?auth="+auth;
 		
 		String result = Util.queryRESTurl(url);
@@ -51,15 +43,12 @@ public class FriendsScreen extends Activity {
 		else{
 			try{
 				JSONObject json = new JSONObject(result);
-										
 				Toast.makeText(getApplicationContext(), json.getJSONArray("friend").getString(0), Toast.LENGTH_SHORT).show();
 
 			}  
-			catch (JSONException e) {  
+			catch (JSONException e) {
 				Log.e("JSON", "There was an error parsing the JSON", e);  
 			}
 		}
-		
-	}
-
+    }
 }

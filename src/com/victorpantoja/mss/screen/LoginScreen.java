@@ -4,6 +4,7 @@
 package com.victorpantoja.mss.screen;
 
 import com.victorpantoja.mss.R;
+import com.victorpantoja.mss.util.Util;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +16,6 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 /**
  * @author victor.pantoja
@@ -57,27 +57,26 @@ public class LoginScreen  extends Activity
 	
 	private OnClickListener loginListener = new OnClickListener() {
 	    public void onClick(View v) {
+	    	
+	    	String auth = Util.tryAuthenticate(textNome.getText().toString(), textPass.getText().toString());
+	    	
 			SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", MODE_PRIVATE);
 
 			SharedPreferences.Editor editor = pref.edit();
 			
 			editor.putString("login", textNome.getText().toString());
 			editor.putString("pass", textPass.getText().toString());
-
-			Log.i(TAG,"Status salvo para: " + textNome.getText().toString() + ", password: "+textPass.getText().toString());
-
-			editor.commit();
+			editor.putString("auth", auth);
 			
-			finishFromChild(getParent());
+			editor.commit();
+
+			startActivity(new Intent(getApplicationContext(),MainScreen.class));
 		}
 	};
 	
 	private OnClickListener createAccountListener = new OnClickListener() {
 	    public void onClick(View v) {
-
 			startActivity(new Intent(getApplicationContext(), CreateAccountScreen.class));
-
-			finishFromChild(getParent());
 		}
 	};
 }

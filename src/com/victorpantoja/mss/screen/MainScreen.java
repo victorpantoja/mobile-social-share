@@ -5,7 +5,6 @@ package com.victorpantoja.mss.screen;
 
 import android.app.TabActivity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,17 +21,24 @@ public class MainScreen extends TabActivity{
 	{
 		super.onCreate(savedInstanceState);
 		
-		SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", 0);
-		String auth = pref.getString("auth", "not_found");
+		Bundle extras = getIntent().getExtras();
+		String auth = extras.getString("auth");
+		
+		if(!auth.equals("")){
+			//TODO - try authticating user...
+		}
 		
 		Intent status = new Intent(this,StatusUpdateScreen.class);
 		status.putExtra("auth", auth);
 		
 		Intent places = new Intent(this,MyPlacesScreen.class);
+		places.putExtra("auth", auth);
+		
 		Intent friends = new Intent(this,FriendsScreen.class);
 		friends.putExtra("auth", auth);
 		
 		Intent me = new Intent(this,MyInformationScreen.class);
+		me.putExtra("auth", auth);
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
