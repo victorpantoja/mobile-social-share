@@ -3,13 +3,22 @@
  */
 package com.victorpantoja.mss.screen;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.victorpantoja.mss.R;
@@ -19,7 +28,7 @@ import com.victorpantoja.mss.util.Util;
  * @author victor.pantoja
  *
  */
-public class FriendsScreen extends Activity {
+public class FriendsScreen extends ListActivity {
 	
 	private String auth = "";
 	
@@ -27,9 +36,9 @@ public class FriendsScreen extends Activity {
     public void onResume() {
         super.onResume();
         
-        setContentView(R.layout.friends);
+/*        setContentView(R.layout.friends);
         
-        EditText textFriends = (EditText) findViewById(R.id.textFriend);
+        TextView textFriends = (TextView) findViewById(R.id.textFriend);*/
         
         Bundle extras = getIntent().getExtras();
         
@@ -38,6 +47,7 @@ public class FriendsScreen extends Activity {
 		String url = Util.url_get_friend+"?auth="+auth;
 		
 		String result = Util.queryRESTurl(url);
+		ArrayList<String> friends = new ArrayList<String>();
 		
 		if(result.equals(""))
 		{
@@ -46,12 +56,32 @@ public class FriendsScreen extends Activity {
 		else{
 			try{
 				JSONObject json = new JSONObject(result);
-				Toast.makeText(getApplicationContext(), json.getJSONArray("friend").getString(0), Toast.LENGTH_SHORT).show();
-				textFriends.setText("You have "+json.getJSONArray("friend").length()+" friends.");
+
+				for (int i=0;i<json.getJSONArray("friend").length();i++){ 
+					friends.add(json.getJSONArray("friend").get(i).toString());
+				}
 			}  
 			catch (JSONException e) {
 				Log.e("JSON", "There was an error parsing the JSON", e);  
 			}
 		}
+		
+		String[] listItems = {"item 1", "item 2"}; 
+		
+		for(int i=0;i<friends.size();i++){
+			Log.i("FriendsScreen", friends.get(i));
+		}
+		
+		setListAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listItems));
     }
+    
+	@Override
+	protected void onListItemClick(ListView l, View v, int posicao, long id)
+	{
+		Toast.makeText(getApplicationContext(), "posicao: "+posicao+" id: "+id, Toast.LENGTH_SHORT).show();
+
+		//Intent event = new Intent(this,FriendInformationScreen.class);
+		//event.putExtra("posicao", posicao);
+		//startActivity(event);
+	}
 }
