@@ -46,6 +46,14 @@
 				android:clickable="true"
 				android:focusable="true" 
 				android:button="@drawable/facebook_check"/>
+				
+			<CheckBox
+				android:text="Share Traffic?"
+				android:id="@+id/shareTraffic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_marginLeft="5dp"/>
 		</TableRow>
 	</TableLayout>		
 
