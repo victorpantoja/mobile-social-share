@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/linearLayout1" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+    <TableLayout android:layout_height="fill_parent" android:id="@+id/tableUserInformation" android:layout_width="fill_parent">
+    	<WebView android:id="@+id/webkitWebView1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+		</WebView>
+        <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+          	<TextView
+		  		android:id="@+id/textFriend"
+				android:layout_width="wrap_content"
+				android:layout_height="50dip"
+				android:textSize="13sp"
+				android:textColor="#fff"
+				android:text="First Name:"
+				android:paddingTop="10sp"/>
+				
+          	<TextView
+		  		android:id="@+id/textFirstName"
+				android:layout_width="wrap_content"
+				android:layout_height="50dip"
+				android:textSize="13sp"
+				android:textColor="#fff"
+				android:paddingTop="10sp" android:paddingLeft="5sp"/>
+        </TableRow>
+        <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+          	<TextView
+		  		android:id="@+id/textFriend"
+				android:layout_width="wrap_content"
+				android:layout_height="50dip"
+				android:textSize="13sp"
+				android:textColor="#fff"
+				android:text="Last Name:"
+				android:paddingTop="10sp"/>
+          	<TextView
+		  		android:id="@+id/textLastName"
+				android:layout_width="wrap_content"
+				android:layout_height="50dip"
+				android:textSize="13sp"
+				android:textColor="#fff"
+				android:paddingTop="10sp"
+				android:paddingLeft="5sp"/>
+        </TableRow>
+		<TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+          	<TextView
+		  		android:id="@+id/textFriend"
+				android:layout_width="wrap_content"
+				android:textSize="13sp"
+				android:textColor="#fff"
+				android:text="Username:"
+				android:layout_height="50dip"
+				android:paddingTop="10sp"/>
+				
+          	<TextView
+		  		android:id="@+id/textUsername"
+				android:layout_width="wrap_content"
+				android:layout_height="50dip"
+				android:textSize="13sp"
+				android:textColor="#fff"
+				android:paddingTop="10sp"
+				android:paddingLeft="5sp"/>
+		</TableRow>
+    </TableLayout>
+</LinearLayout>

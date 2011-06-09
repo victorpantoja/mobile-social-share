@@ -16,6 +16,7 @@
         </activity>
         
         <activity android:name=".screen.CreateAccountScreen" />
+        <activity android:name=".screen.FriendInformationScreen" />
 		<activity android:name=".screen.FriendsScreen" />
         <activity android:name=".screen.LoginScreen" />
 		<activity android:name=".screen.MainScreen" />

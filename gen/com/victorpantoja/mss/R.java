@@ -22,7 +22,7 @@ public final class R {
         public static final int twitter_icon=0x7f020008;
     }
     public static final class id {
-        public static final int LinearLayout01=0x7f060013;
+        public static final int LinearLayout01=0x7f060018;
         public static final int btnCreateAccount=0x7f060003;
         public static final int btnLogin=0x7f060008;
         public static final int campoLogin=0x7f060002;
@@ -39,10 +39,15 @@ public final class R {
         public static final int splashscreen=0x7f060012;
         public static final int tableLogin=0x7f060006;
         public static final int tableRow1=0x7f06000d;
+        public static final int tableUserInformation=0x7f060013;
+        public static final int textFirstName=0x7f060015;
         public static final int textFriend=0x7f060005;
+        public static final int textLastName=0x7f060016;
+        public static final int textUsername=0x7f060017;
         public static final int textView1=0x7f06000a;
         public static final int twitterCheck=0x7f06000e;
-        public static final int widget_textview=0x7f060014;
+        public static final int webkitWebView1=0x7f060014;
+        public static final int widget_textview=0x7f060019;
     }
     public static final class layout {
         public static final int create_account=0x7f030000;
@@ -51,7 +56,8 @@ public final class R {
         public static final int places=0x7f030003;
         public static final int post=0x7f030004;
         public static final int splash=0x7f030005;
-        public static final int widget=0x7f030006;
+        public static final int user_information=0x7f030006;
+        public static final int widget=0x7f030007;
     }
     public static final class string {
         public static final int app_name=0x7f050001;

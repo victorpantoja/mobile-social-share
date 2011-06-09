@@ -32,13 +32,11 @@ public class FriendsScreen extends ListActivity {
 	
 	private String auth = "";
 	
+	JSONObject json;
+	
     @Override
     public void onResume() {
         super.onResume();
-        
-/*        setContentView(R.layout.friends);
-        
-        TextView textFriends = (TextView) findViewById(R.id.textFriend);*/
         
         Bundle extras = getIntent().getExtras();
         
@@ -55,10 +53,11 @@ public class FriendsScreen extends ListActivity {
 		}
 		else{
 			try{
-				JSONObject json = new JSONObject(result);
+				json = new JSONObject(result);
 
-				for (int i=0;i<json.getJSONArray("friend").length();i++){ 
-					friends.add(json.getJSONArray("friend").get(i).toString());
+				for (int i=0;i<json.getJSONArray("friend").length();i++){
+					String friend = ((JSONObject)json.getJSONArray("friend").get(i)).getString("first_name")+" "+((JSONObject)json.getJSONArray("friend").get(i)).getString("last_name");
+					friends.add(friend);
 				}
 			}  
 			catch (JSONException e) {
@@ -66,22 +65,31 @@ public class FriendsScreen extends ListActivity {
 			}
 		}
 		
-		String[] listItems = {"item 1", "item 2"}; 
+		List<String> menu = new ArrayList<String>(0);
 		
 		for(int i=0;i<friends.size();i++){
-			Log.i("FriendsScreen", friends.get(i));
+			menu.add(friends.get(i));
 		}
 		
-		setListAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listItems));
+		setListAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,menu));
     }
     
 	@Override
 	protected void onListItemClick(ListView l, View v, int posicao, long id)
 	{
-		Toast.makeText(getApplicationContext(), "posicao: "+posicao+" id: "+id, Toast.LENGTH_SHORT).show();
+		String username = "";
+		try {
+			username = ((JSONObject)json.getJSONArray("friend").get(posicao)).getString("username");
 
-		//Intent event = new Intent(this,FriendInformationScreen.class);
-		//event.putExtra("posicao", posicao);
-		//startActivity(event);
+		} catch (JSONException e) {
+			Log.e("JSON", "There was an error parsing the JSON", e); 
+		}
+		
+
+		Intent friendInformation = new Intent(this,FriendInformationScreen.class);
+		friendInformation.putExtra("username", username);
+		friendInformation.putExtra("auth", auth);
+
+		startActivity(friendInformation);
 	}
 }

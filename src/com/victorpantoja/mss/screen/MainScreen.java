@@ -46,7 +46,7 @@ public class MainScreen extends TabActivity{
 		Intent me = new Intent(this,MyInformationScreen.class);
 		me.putExtra("auth", auth);
 
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		//requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
 		final TabHost tabHost = getTabHost();
 		
