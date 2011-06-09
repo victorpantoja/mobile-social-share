@@ -22,9 +22,7 @@ import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * @author victor.pantoja
@@ -34,7 +32,7 @@ public class Util {
 	
 	static final String TAG = "mss";
 	
-	private static final String server_name = "http://192.168.0.154:9080";
+	public static final String server_name = "http://192.168.0.154:9080";
 	public static final String url_send_context = "/context";	
 	public static final String url_login = "/login";
 	public static final String url_create_acount = "/login/create";

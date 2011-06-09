@@ -27,6 +27,7 @@ public final class R {
         public static final int btnLogin=0x7f060008;
         public static final int campoLogin=0x7f060002;
         public static final int campoSenha=0x7f060007;
+        public static final int contextMap=0x7f06000a;
         public static final int facebookCheck=0x7f06000f;
         public static final int firstName=0x7f060001;
         public static final int lastName=0x7f060000;
@@ -44,7 +45,6 @@ public final class R {
         public static final int textFriend=0x7f060005;
         public static final int textLastName=0x7f060016;
         public static final int textUsername=0x7f060017;
-        public static final int textView1=0x7f06000a;
         public static final int twitterCheck=0x7f06000e;
         public static final int webkitWebView1=0x7f060014;
         public static final int widget_textview=0x7f060019;
