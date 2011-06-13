@@ -58,5 +58,6 @@
 				android:paddingTop="10sp"
 				android:paddingLeft="5sp"/>
 		</TableRow>
+		<Button android:layout_width="wrap_content" android:text="@string/removeFriendButtom" android:id="@+id/addRemoveFriendButtom" android:layout_height="wrap_content" android:visibility="invisible"></Button>
     </TableLayout>
 </LinearLayout>

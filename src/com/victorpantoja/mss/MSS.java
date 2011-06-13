@@ -30,6 +30,7 @@ public class MSS extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.splash);
 
+		//TODO - Mudar para tela de loading
 		Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
 
 		SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", MODE_PRIVATE);
@@ -46,6 +47,7 @@ public class MSS extends Activity {
 				startActivity(new Intent(this,LoginScreen.class));
 			}
 			else{
+				//TODO - obter as redes disponiveis e os convites
 				Intent mainScreen = new Intent(this,MainScreen.class);
 				mainScreen.putExtra("auth", auth);
 				startActivity(mainScreen);

@@ -78,7 +78,8 @@ public class MainScreen extends TabActivity{
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	    case 0:
-	        //addFriend();
+	    	Intent searchScreen = new Intent(getApplicationContext(),SearchableActivity.class);
+	    	startActivity(searchScreen);
 	        return true;
 	    case 1:
 	    	//settings

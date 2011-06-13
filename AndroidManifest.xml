@@ -23,6 +23,21 @@
 		<activity android:name=".screen.MyPlacesScreen" />
 		<activity android:name=".screen.MyInformationScreen" />
 		<activity android:name=".screen.StatusUpdateScreen" />
+		<activity android:name="screen.SearchableActivity" />
+		
+		<activity android:name=".screen.SearchableActivity" >
+		        <intent-filter>
+		            <action android:name="android.intent.action.SEARCH" />
+		        </intent-filter>
+		        <meta-data android:name="android.app.searchable"
+		                   android:resource="@xml/searchable"/>
+		    </activity>
+		    
+	    <activity android:name=".screen.SearchScreen">
+	        <!-- enable the search dialog to send searches to SearchableActivity -->
+	        <meta-data android:name="android.app.default_searchable"
+	                   android:value=".SearchableActivity" />
+	    </activity>
 		
 		<receiver android:name=".widget.MssWidgetProvider">
 			<intent-filter>

@@ -32,6 +32,7 @@ public class Util {
 	
 	static final String TAG = "mss";
 	
+	//public static final String server_name = "http://myalbumshare.com:8000/api";
 	public static final String server_name = "http://192.168.0.154:9080";
 	public static final String url_send_context = "/context";	
 	public static final String url_login = "/login";
@@ -45,6 +46,7 @@ public class Util {
 	public static final String url_send_email_envites = "/invite/email/send";
 	public static final String url_accept_email_envite = "/invite/email/accept";
 	public static final String url_get_user = "/user.json";
+	public static final String url_api_information = server_name+"/status";
 
 	public static String queryRESTurl(String url) {  
 		HttpParams params = new BasicHttpParams();

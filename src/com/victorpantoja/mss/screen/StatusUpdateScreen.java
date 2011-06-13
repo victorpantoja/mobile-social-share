@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -48,6 +49,9 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
         
         CheckBox shareTraffic = (CheckBox)findViewById(R.id.shareTraffic);
         shareTraffic.setOnCheckedChangeListener(checbBoxListener);
+        
+        WebView apiInformation = (WebView)findViewById(R.id.apiStatusWebView);
+        apiInformation.loadUrl(Util.url_api_information);
     }
     
     private OnCheckedChangeListener checbBoxListener = new OnCheckedChangeListener() {

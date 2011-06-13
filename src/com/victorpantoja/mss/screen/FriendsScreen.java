@@ -85,6 +85,7 @@ public class FriendsScreen extends ListActivity {
 		Intent friendInformation = new Intent(this,FriendInformationScreen.class);
 		friendInformation.putExtra("username", username);
 		friendInformation.putExtra("auth", auth);
+		friendInformation.putExtra("isFriend", true);
 
 		startActivity(friendInformation);
 	}
