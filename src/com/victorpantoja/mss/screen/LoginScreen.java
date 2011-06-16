@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * @author victor.pantoja
@@ -62,13 +63,21 @@ public class LoginScreen  extends Activity
 			SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", MODE_PRIVATE);
 
 			SharedPreferences.Editor editor = pref.edit();
-			
 			editor.putString("login", textNome.getText().toString());
 			editor.putString("pass", textPass.getText().toString());
-
-			Intent mainScreen = new Intent(getApplicationContext(),MainScreen.class);
-			mainScreen.putExtra("auth", auth);
-			startActivity(mainScreen);
+			editor.commit();
+			
+			if(auth.equals("")){
+				Toast.makeText(getApplicationContext(), "Wrong User or Password", Toast.LENGTH_SHORT).show();
+				editor.putString("pass", "");
+				editor.commit();
+				textPass.setText("");
+			}
+			else{
+				Intent mainScreen = new Intent(getApplicationContext(),MainScreen.class);
+				mainScreen.putExtra("auth", auth);
+				startActivity(mainScreen);
+			}
 		}
 	};
 	

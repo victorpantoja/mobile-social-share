@@ -8,4 +8,5 @@
     <string name="lastName">Last Name</string>
     <string name="firstName">First Name</string>
     <string name="removeFriendButtom">Unfollow</string>
+    <string name="gender_prompt">gender</string>
 </resources>

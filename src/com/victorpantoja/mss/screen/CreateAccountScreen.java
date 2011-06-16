@@ -3,6 +3,9 @@
  */
 package com.victorpantoja.mss.screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,8 +15,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.victorpantoja.mss.R;
@@ -28,6 +33,7 @@ public class CreateAccountScreen extends Activity implements OnClickListener{
 	protected static final String TAG = "mss";
 	private EditText textLastName, textFirstName, textUsername;
 	private ProgressDialog mProgressDlg;
+	private Spinner s;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +44,12 @@ public class CreateAccountScreen extends Activity implements OnClickListener{
 		textLastName = (EditText) findViewById(R.id.lastName);
 		textFirstName = (EditText) findViewById(R.id.firstName);
 		textUsername = (EditText) findViewById(R.id.campoLogin);
-		
+		s = (Spinner) findViewById(R.id.genderSpinner);
+	    ArrayAdapter adapter = ArrayAdapter.createFromResource(
+	            this, R.array.gender, android.R.layout.simple_spinner_item);
+	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    s.setAdapter(adapter);
+	    
 		button.setOnClickListener(this);
     }
     
@@ -46,8 +57,15 @@ public class CreateAccountScreen extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		mProgressDlg = ProgressDialog.show(CreateAccountScreen.this, "", "Loading. Please wait...", true);
 		mProgressDlg.show();
+		
+		String[] genders = new String[3];
+		genders[0] = "M";
+		genders[1] = "F";
+		genders[2] = "O";
+		
+		int position = s.getSelectedItemPosition();
 				
-		String url = Util.url_create_acount+"?username="+textUsername.getText()+"&firstName="+textFirstName.getText()+"&lastName="+textLastName.getText();
+		String url = Util.url_create_acount+"?username="+textUsername.getText()+"&firstName="+textFirstName.getText()+"&lastName="+textLastName.getText()+"&gender="+genders[position];
 		
 		String result = Util.queryRESTurl(url);
 		

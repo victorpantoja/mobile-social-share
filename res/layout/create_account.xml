@@ -15,6 +15,11 @@
 		<EditText android:id="@+id/campoLogin" android:padding="3dip" />
 	</TableRow>
 	<TableRow android:gravity="right">
+		<Spinner android:layout_height="wrap_content"
+				android:id="@+id/genderSpinner"
+				android:layout_width="wrap_content"
+				android:prompt="@string/gender_prompt">
+		</Spinner>
 	</TableRow>
 	<Button android:text="@string/create_account" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/btnCreateAccount"></Button>
 </TableLayout>

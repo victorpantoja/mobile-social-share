@@ -44,6 +44,9 @@ public class MSS extends Activity {
 			String auth = Util.tryAuthenticate(login, pass);
 			if(auth.equals("")){
 				Toast.makeText(this, "Wrong User or Password", Toast.LENGTH_SHORT).show();
+				SharedPreferences.Editor editor = pref.edit();
+				editor.putString("pass", "");
+				editor.commit();
 				startActivity(new Intent(this,LoginScreen.class));
 			}
 			else{
