@@ -75,7 +75,8 @@ public class LoginScreen  extends Activity
 			}
 			else{
 				Intent mainScreen = new Intent(getApplicationContext(),MainScreen.class);
-				mainScreen.putExtra("auth", auth);
+				mainScreen.putExtra("auth", auth.split(";")[0]);
+				mainScreen.putExtra("invites", Integer.parseInt(auth.split(";")[1]));
 				startActivity(mainScreen);
 			}
 		}

@@ -32,8 +32,8 @@ public class Util {
 	
 	static final String TAG = "mss";
 	
-	//public static final String server_name = "http://myalbumshare.com:8000/api";
-	public static final String server_name = "http://192.168.0.154:9080";
+	public static final String server_name = "http://myalbumshare.com:8000/api";
+	//public static final String server_name = "http://192.168.0.154:9080";
 	public static final String url_send_context = "/context";	
 	public static final String url_login = "/login";
 	public static final String url_create_acount = "/login/create";
@@ -42,8 +42,8 @@ public class Util {
 	public static final String url_remove_friendship = "/friendship/remove";
 	public static final String url_send_invite = "/invite/send";
 	public static final String url_accept_invite = "/invite/accept";
-	public static final String url_get_invites = "/invite/get.json";
-	public static final String url_send_email_envites = "/invite/email/send";
+	public static final String url_get_invitations = "/invitation/get.json";
+	public static final String url_send_email_envite = "/invite/email/send";
 	public static final String url_accept_email_envite = "/invite/email/accept";
 	public static final String url_get_user = "/user.json";
 	public static final String url_api_information = server_name+"/status";
@@ -141,7 +141,7 @@ public class Util {
 									
 			if (json.getString("status").equals("ok"))
 			{	
-				return json.getString("msg");
+				return json.getString("msg")+";"+json.getJSONArray("invites").length();
 			}
 			else{
 				return "";

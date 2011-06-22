@@ -28,7 +28,7 @@ public class FriendInformationScreen extends Activity implements OnClickListener
 	
 	String auth;
 	Button btnAddRemove;
-	Boolean isFriend;
+	Boolean isFriend, isInvite;
 	String username;
 	
     @Override
@@ -40,6 +40,7 @@ public class FriendInformationScreen extends Activity implements OnClickListener
         auth = extras.getString("auth");
         isFriend = extras.getBoolean("isFriend");
         username = extras.getString("username");
+        isInvite = extras.getBoolean("isInvite");
                 
 		String url = Util.url_get_user+"?username="+username+"&auth="+auth;
 		
@@ -61,8 +62,12 @@ public class FriendInformationScreen extends Activity implements OnClickListener
 				user_name.setText(json.getJSONObject("user").getString("username"));
 				lastName.setText(json.getJSONObject("user").getString("last_name"));
 				
-				if(!isFriend){
+				if(!isFriend && !isInvite){
 					btnAddRemove.setText("Follow");
+				}
+				
+				if(isInvite){
+					btnAddRemove.setText("Accept");
 				}
 				
 				btnAddRemove.setVisibility(View.VISIBLE);
@@ -84,13 +89,46 @@ public class FriendInformationScreen extends Activity implements OnClickListener
     @Override
 	public void onClick(View v) {
 		
-    	if(isFriend){
-    		addRemoveFriend("remove");
+    	if(!isInvite){
+        	if(isFriend){
+        		addRemoveFriend("remove");
+        	}
+        	else{
+        		addRemoveFriend("add");
+        	}	
     	}
     	else{
-    		addRemoveFriend("add");
+    		acceptInvite();
     	}
 	}
+    
+    private void acceptInvite() {
+    	
+		String url = Util.url_accept_invite+"?username="+username+"&auth="+auth;
+		String result = Util.queryRESTurl(url);
+		
+		if(result.equals(""))
+		{
+			Toast.makeText(getApplicationContext(), "Internal Error.", Toast.LENGTH_SHORT).show();
+		}
+		else{
+			try{
+				JSONObject json = new JSONObject(result);
+				
+				Toast.makeText(getApplicationContext(), json.getString("msg"), Toast.LENGTH_SHORT).show();
+										
+				if (json.getString("status").equals("ok"))
+				{	
+			    	isFriend = true;
+			    	isInvite = false;
+			    	btnAddRemove.setText("Unfollow");
+				}
+			}  
+			catch (JSONException e) {  
+				Log.e("JSON", "There was an error parsing the JSON", e);  
+			}
+		}
+    }
 
 	private void addRemoveFriend(String type) {
 		

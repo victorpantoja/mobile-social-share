@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/places" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
-   	<WebView android:id="@+id/contextMap" android:layout_width="fill_parent" android:layout_height="fill_parent">
-	</WebView>
-</LinearLayout>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:stretchColumns="1">
+	<TableRow>
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:gravity="left"
+				android:textSize="13sp"
+				android:textColor="#fff"
+				android:text="Send an email to you friend or click search icon"/>
+	</TableRow>
+	<TableRow>
+		<EditText
+			android:id="@+id/friendEmail"
+			android:layout_width="250dp"
+			android:layout_height="50dp"
+			android:hint="Envite your friend to MSS"/>
+	</TableRow>
+	<Button android:text="send" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/btnSendEmail"></Button>
+</TableLayout>

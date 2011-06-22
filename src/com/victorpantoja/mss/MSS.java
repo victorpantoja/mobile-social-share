@@ -50,9 +50,10 @@ public class MSS extends Activity {
 				startActivity(new Intent(this,LoginScreen.class));
 			}
 			else{
-				//TODO - obter as redes disponiveis e os convites
+				//TODO - obter as redes disponiveis
 				Intent mainScreen = new Intent(this,MainScreen.class);
-				mainScreen.putExtra("auth", auth);
+				mainScreen.putExtra("auth", auth.split(";")[0]);
+				mainScreen.putExtra("invites", Integer.parseInt(auth.split(";")[1]));
 				startActivity(mainScreen);
 			}
 		}

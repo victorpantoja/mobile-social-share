@@ -20,6 +20,9 @@ import android.widget.TabHost;
 public class MainScreen extends TabActivity{
 	
 	static final int DIALOG_QUIT_ID = 0;
+	static final int DIALOG_INVITE_ID = 1;
+	String auth = "";
+	int invites = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -27,12 +30,17 @@ public class MainScreen extends TabActivity{
 		super.onCreate(savedInstanceState);
 		
 		Bundle extras = getIntent().getExtras();
-		String auth = extras.getString("auth");
+		auth = extras.getString("auth");
+		invites = extras.getInt("invites");
 		
 		if(!auth.equals("")){
 			//TODO - try authticating user...
 		}
 		
+		if(invites > 0){
+			showDialog(DIALOG_INVITE_ID);
+		}
+				
 		Intent status = new Intent(this,StatusUpdateScreen.class);
 		status.putExtra("auth", auth);
 		
@@ -79,6 +87,7 @@ public class MainScreen extends TabActivity{
 	    switch (item.getItemId()) {
 	    case 0:
 	    	Intent searchScreen = new Intent(getApplicationContext(),SearchableActivity.class);
+	    	searchScreen.putExtra("auth", auth);
 	    	startActivity(searchScreen);
 	        return true;
 	    case 1:
@@ -95,6 +104,25 @@ public class MainScreen extends TabActivity{
 	    Dialog dialog;
 	    AlertDialog.Builder builder;
 	    switch(id) {
+		    case DIALOG_INVITE_ID:
+		    	builder = new AlertDialog.Builder(this);
+		    	builder.setTitle("MSS");
+		    	builder.setMessage("You have "+invites+" invite(s). want to see?")
+		    	       .setCancelable(false)
+		    	       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		    	           public void onClick(DialogInterface dialog, int id) {
+			    	       		Intent invites = new Intent(getApplicationContext(),InvitesScreen.class);
+			    	       		invites.putExtra("auth", auth);
+			    	    		startActivity(invites);
+		    	           }
+		    	       })
+		    	       .setNegativeButton("Not now", new DialogInterface.OnClickListener() {
+		    	           public void onClick(DialogInterface dialog, int id) {
+		    	                dialog.cancel();
+		    	           }
+		    	       });
+		    	dialog = builder.create();
+		    	break;
 		    case DIALOG_QUIT_ID:
 		    	builder = new AlertDialog.Builder(this);
 		    	builder.setTitle("MSS");
