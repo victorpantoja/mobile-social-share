@@ -3,6 +3,7 @@
  */
 package com.victorpantoja.mss.screen;
 
+import com.mobilesocialshare.mss.MSSApi;
 import com.victorpantoja.mss.R;
 import com.victorpantoja.mss.util.Util;
 
@@ -25,6 +26,7 @@ public class LoginScreen  extends Activity
 {
 	protected static final String TAG = "LoginScreen";
 	private EditText textNome, textPass;
+	private MSSApi mss  = new MSSApi();
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -58,7 +60,7 @@ public class LoginScreen  extends Activity
 	private OnClickListener loginListener = new OnClickListener() {
 	    public void onClick(View v) {
 	    	
-	    	String auth = Util.tryAuthenticate(textNome.getText().toString(), textPass.getText().toString());
+	    	String auth = mss.tryAuthenticate(textNome.getText().toString(), textPass.getText().toString());
 	    	
 			SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", MODE_PRIVATE);
 
