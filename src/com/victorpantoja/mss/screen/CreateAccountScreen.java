@@ -31,7 +31,7 @@ import com.victorpantoja.mss.util.Util;
 public class CreateAccountScreen extends Activity implements OnClickListener{
 	
 	protected static final String TAG = "mss";
-	private EditText textLastName, textFirstName, textUsername;
+	private EditText textLastName, textFirstName, textUsername, email;
 	private ProgressDialog mProgressDlg;
 	private Spinner s;
 	
@@ -44,6 +44,7 @@ public class CreateAccountScreen extends Activity implements OnClickListener{
 		textLastName = (EditText) findViewById(R.id.lastName);
 		textFirstName = (EditText) findViewById(R.id.firstName);
 		textUsername = (EditText) findViewById(R.id.campoLogin);
+		email = (EditText) findViewById(R.id.campoEmail);
 		s = (Spinner) findViewById(R.id.genderSpinner);
 	    ArrayAdapter adapter = ArrayAdapter.createFromResource(
 	            this, R.array.gender, android.R.layout.simple_spinner_item);
@@ -65,7 +66,7 @@ public class CreateAccountScreen extends Activity implements OnClickListener{
 		
 		int position = s.getSelectedItemPosition();
 				
-		String url = Util.url_create_acount+"?username="+textUsername.getText()+"&firstName="+textFirstName.getText()+"&lastName="+textLastName.getText()+"&gender="+genders[position];
+		String url = Util.url_create_acount+"?username="+textUsername.getText()+"&firstName="+textFirstName.getText()+"&lastName="+textLastName.getText()+"&email="+email.getText()+"&gender="+genders[position];
 		
 		String result = Util.queryRESTurl(url);
 		

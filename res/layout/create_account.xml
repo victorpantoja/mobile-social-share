@@ -14,6 +14,10 @@
 		<TextView android:text="Username: " android:padding="3dip" />
 		<EditText android:id="@+id/campoLogin" android:padding="3dip" />
 	</TableRow>
+	<TableRow>
+		<TextView android:text="Email: " android:padding="3dip" />
+		<EditText android:id="@+id/campoEmail" android:padding="3dip" />
+	</TableRow>
 	<TableRow android:gravity="right">
 		<Spinner android:layout_height="wrap_content"
 				android:id="@+id/genderSpinner"

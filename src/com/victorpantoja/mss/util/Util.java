@@ -9,16 +9,25 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,8 +41,8 @@ public class Util {
 	
 	static final String TAG = "mss";
 	
-	public static final String server_name = "http://myalbumshare.com:8000/api";
-	//public static final String server_name = "http://192.168.0.154:9080";
+	//public static final String server_name = "http://myalbumshare.com:8000/api";
+	public static final String server_name = "http://192.168.0.191:9080";
 	public static final String url_send_context = "/context";	
 	public static final String url_login = "/login";
 	public static final String url_create_acount = "/login/create";
@@ -47,6 +56,44 @@ public class Util {
 	public static final String url_accept_email_envite = "/invite/email/accept";
 	public static final String url_get_user = "/user.json";
 	public static final String url_api_information = server_name+"/status";
+	
+	public static String postData(String url, Map<Integer, String> context) {
+	    // Create a new HttpClient and Post Header
+	    HttpClient httpclient = new DefaultHttpClient();
+	    HttpPost httppost = new HttpPost(server_name+url);
+	    
+	    Log.i(TAG,"Ola!! Contexto: "+context.get(1));
+	    
+	    try {
+	        // Add your data
+		    StringEntity se = new StringEntity("{\"application\":[\"twitter\"],\"context\":{\"location\":\""+context.get(new Integer(1))+"\",\"status\":\"text\"}}",HTTP.UTF_8);
+	    	
+		    httppost.setHeader("Content-Type","application/json;charset=UTF-8");
+	    	httppost.setEntity(se);
+
+	        // Execute HTTP Post Request
+	        Log.i(TAG, "Querying URL:" + url);
+	        HttpResponse response = httpclient.execute(httppost);
+	        Log.i(TAG, "Status:[" + response.getStatusLine().toString() + "]");
+	        HttpEntity entity = response.getEntity();
+	        
+			if (entity != null) {  
+
+				InputStream instream = entity.getContent();  
+				String result = convertStreamToString(instream);  
+				Log.i(TAG, "Result of converstion: [" + result + "]");  
+
+				instream.close();  
+				return result;  
+			}  
+	        
+	    } catch (ClientProtocolException e) {
+	    	 Log.e(TAG,e.getMessage());
+	    } catch (IOException e) {
+	        Log.e(TAG,e.getMessage());
+	    }
+	    return "";
+	} 
 
 	public static String queryRESTurl(String url) {  
 		HttpParams params = new BasicHttpParams();

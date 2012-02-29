@@ -1,5 +1,8 @@
 package com.victorpantoja.mss.screen;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.victorpantoja.mss.R;
 import com.victorpantoja.mss.util.Util;
 
@@ -93,7 +96,7 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 		  };
 		  
 		// Register the listener with the Location Manager to receive location updates
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 	}
 	
 
@@ -104,8 +107,12 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
         Log.i(TAG, "textToSend: "+reviewEdit);
     	//TODO - tratar os parametros
         
-		String url = Util.url_send_context+"?location="+location_str+"&text="+reviewEdit.getText().toString()+"&auth="+auth;
-		String result = Util.queryRESTurl(url);
+		String url = Util.url_send_context+"?auth="+auth;
+		
+        Map<Integer, String> context = new HashMap<Integer, String>();
+        context.put(1, location_str);
+		
+		String result = Util.postData(url,context);
     	
 		Toast.makeText(getApplicationContext(), "Result: "+result, Toast.LENGTH_SHORT).show();
 		locationManager.removeUpdates(locationListener);
