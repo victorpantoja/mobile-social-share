@@ -3,7 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="libs/android-support-v4.jar"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ContextManagementService"/>
+	<classpathentry kind="lib" path="/Users/victor.pantoja/workspace/icm_v20100506.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
