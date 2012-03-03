@@ -53,7 +53,7 @@ public class MyInformationScreen extends Activity {
 				user_name.setText(json.getJSONObject("user").getString("username"));
 				lastName.setText(json.getJSONObject("user").getString("last_name"));
 				
-				String hash = MD5Util.md5Hex(json.getJSONObject("user").getString("username"));
+				String hash = MD5Util.md5Hex(json.getJSONObject("user").getString("email"));
 				
 				WebView mWebView = (WebView) findViewById(R.id.webkitWebView1);
 				String summary = "<html><body><img src=\"http://www.gravatar.com/avatar/"+hash+"?s=100\"/></body></html>";
