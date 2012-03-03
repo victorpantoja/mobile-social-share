@@ -11,14 +11,9 @@ import com.victorpantoja.mss.util.Util;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
@@ -36,8 +31,6 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 	private CheckBox mTwitterBtn, mFacebookBtn;
 	private EditText reviewEdit;
 	private String auth = "";
-	private LocationManager locationManager;
-	private LocationListener locationListener;
 	
 	SharedPreferences.Editor editor;
 	SharedPreferences pref;
