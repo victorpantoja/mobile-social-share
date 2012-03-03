@@ -6,5 +6,6 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ContextManagementService"/>
 	<classpathentry kind="lib" path="/Users/victor.pantoja/workspace/icm_v20100506.jar"/>
+	<classpathentry kind="lib" path="/ContextManagementService/ContextManagementService.jar" sourcepath="/ContextManagementService/src"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
