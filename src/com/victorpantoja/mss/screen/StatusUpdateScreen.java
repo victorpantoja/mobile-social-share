@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -35,6 +36,9 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 	private String auth = "";
 	private LocationManager locationManager;
 	private LocationListener locationListener;
+	
+	SharedPreferences.Editor editor;
+	SharedPreferences pref;
 
     /** Called when the activity is first created. */
     @Override
@@ -79,43 +83,30 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 		
 		mTwitterBtn	= (CheckBox) findViewById(R.id.twitterCheck);
 		
-		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		
-		locationListener = new LocationListener() {
-		    public void onLocationChanged(Location location) {
-		      sendLocation(location);
-		    }
+		this.pref = getSharedPreferences("MOBILESOCIALSHARE", MODE_PRIVATE);
+		String location = pref.getString("location", "not_found");
 
-			public void onStatusChanged(String provider, int status, Bundle extras) {}
-
-		    public void onProviderEnabled(String provider) {}
-
-		    public void onProviderDisabled(String provider) {
-				Toast.makeText(getApplicationContext(), "Could not find location.", Toast.LENGTH_SHORT).show();
-		    }
-		  };
-		  
-		// Register the listener with the Location Manager to receive location updates
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+		if(location.equals("not_found")){
+			Toast.makeText(getApplicationContext(), "Could not determine your last location.", Toast.LENGTH_SHORT).show();
+		}
+		else{
+			sendLocation(location);
+		}
 	}
 	
 
-    private void sendLocation(Location location) {
-    	
-    	String location_str = location.getLatitude()+","+location.getLongitude();
-
+    private void sendLocation(String location) {
         Log.i(TAG, "textToSend: "+reviewEdit);
     	//TODO - tratar os parametros
         
 		String url = Util.url_send_context+"?auth="+auth;
 		
         Map<Integer, String> context = new HashMap<Integer, String>();
-        context.put(1, location_str);
+        context.put(1, location);
 		
 		String result = Util.postData(url,context);
     	
 		Toast.makeText(getApplicationContext(), "Result: "+result, Toast.LENGTH_SHORT).show();
-		locationManager.removeUpdates(locationListener);
 	}
     
 	protected Dialog onCreateDialog(int id) {
