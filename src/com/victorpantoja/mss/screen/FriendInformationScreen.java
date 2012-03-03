@@ -73,7 +73,7 @@ public class FriendInformationScreen extends Activity implements OnClickListener
 				btnAddRemove.setVisibility(View.VISIBLE);
 				btnAddRemove.setOnClickListener(this);
 				
-				String hash = MD5Util.md5Hex(json.getJSONObject("user").getString("username"));
+				String hash = MD5Util.md5Hex(json.getJSONObject("user").getString("email"));
 				
 				WebView mWebView = (WebView) findViewById(R.id.webkitWebView1);
 				String summary = "<html><body><img src=\"http://www.gravatar.com/avatar/"+hash+"?s=100\"/></body></html>";
