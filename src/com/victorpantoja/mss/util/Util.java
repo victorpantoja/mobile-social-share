@@ -58,31 +58,27 @@ public class Util {
 	public static final String url_api_information = server_name+"/status";
 	
 	public static String postData(String url, Map<String, String> context, List<String> apps) {
-	    // Create a new HttpClient and Post Header
 	    HttpClient httpclient = new DefaultHttpClient();
 	    HttpPost httppost = new HttpPost(server_name+url);
+	    	    
+	    List<String> apps_str = new ArrayList<String>();
 	    
-	    Log.i(TAG,"Ola!! Contexto: "+context.get("status"));
-	    
+	    for(String app : apps){
+	    	apps_str.add("\""+app+"\"");
+	    }
+	    	    
 	    try {
-	        // Add your data
-		    StringEntity se = new StringEntity("{\"application\":[\"twitter\"],\"context\":{\"location\":\""+context.get("location")+"\",\"status\":\""+context.get("status")+"\"}}",HTTP.UTF_8);
+		    StringEntity se = new StringEntity("{\"application\":"+apps_str.toString()+",\"context\":{\"location\":\""+context.get("location")+"\",\"status\":\""+context.get("status")+"\"}}",HTTP.UTF_8);
 	    	
 		    httppost.setHeader("Content-Type","application/json;charset=UTF-8");
 	    	httppost.setEntity(se);
 
-	        // Execute HTTP Post Request
-	        Log.i(TAG, "Querying URL:" + url);
 	        HttpResponse response = httpclient.execute(httppost);
-	        Log.i(TAG, "Status:[" + response.getStatusLine().toString() + "]");
 	        HttpEntity entity = response.getEntity();
 	        
 			if (entity != null) {  
-
 				InputStream instream = entity.getContent();  
 				String result = convertStreamToString(instream);  
-				Log.i(TAG, "Result of converstion: [" + result + "]");  
-
 				instream.close();  
 				return result;  
 			}  

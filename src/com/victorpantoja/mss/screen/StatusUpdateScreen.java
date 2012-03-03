@@ -90,7 +90,7 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 		if(mTwitterBtn.isChecked()){
 			apps.add("twitter");
 		}
-		if(mTwitterBtn.isChecked()){
+		if(mFacebookBtn.isChecked()){
 			apps.add("facebook");
 		}
 		
