@@ -1,6 +1,8 @@
 package com.victorpantoja.mss.screen;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.victorpantoja.mss.R;
@@ -31,7 +33,7 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 	static final int DIALOG_TRAFFIC_ID = 1;
 
 	static final String TAG = "mss";
-	private CheckBox mTwitterBtn;
+	private CheckBox mTwitterBtn, mFacebookBtn;
 	private EditText reviewEdit;
 	private String auth = "";
 	private LocationManager locationManager;
@@ -77,11 +79,25 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		
-		String review = reviewEdit.getText().toString();
+		String status = reviewEdit.getText().toString();
+		List<String> apps = new ArrayList<String>();
 		
-		if (review.equals("")) return;
+		if (status.equals("")) return;
 		
 		mTwitterBtn	= (CheckBox) findViewById(R.id.twitterCheck);
+		mFacebookBtn = (CheckBox) findViewById(R.id.facebookCheck);
+		
+		if(mTwitterBtn.isChecked()){
+			apps.add("twitter");
+		}
+		if(mTwitterBtn.isChecked()){
+			apps.add("facebook");
+		}
+		
+		if(apps.isEmpty()){
+			Toast.makeText(getApplicationContext(), "No application selected.", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		
 		this.pref = getSharedPreferences("MOBILESOCIALSHARE", MODE_PRIVATE);
 		String location = pref.getString("location", "not_found");
@@ -90,21 +106,20 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 			Toast.makeText(getApplicationContext(), "Could not determine your last location.", Toast.LENGTH_SHORT).show();
 		}
 		else{
-			sendLocation(location);
+			sendLocation(apps, location, status);
 		}
 	}
 	
 
-    private void sendLocation(String location) {
-        Log.i(TAG, "textToSend: "+reviewEdit);
-    	//TODO - tratar os parametros
+    private void sendLocation(List<String> apps, String location, String status) {
         
 		String url = Util.url_send_context+"?auth="+auth;
 		
-        Map<Integer, String> context = new HashMap<Integer, String>();
-        context.put(1, location);
+        Map<String, String> context = new HashMap<String, String>();
+        context.put("location", location);
+        context.put("status", ""+status);
 		
-		String result = Util.postData(url,context);
+		String result = Util.postData(url, context, apps);
     	
 		Toast.makeText(getApplicationContext(), "Result: "+result, Toast.LENGTH_SHORT).show();
 	}

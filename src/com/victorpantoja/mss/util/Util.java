@@ -57,16 +57,16 @@ public class Util {
 	public static final String url_get_user = "/user.json";
 	public static final String url_api_information = server_name+"/status";
 	
-	public static String postData(String url, Map<Integer, String> context) {
+	public static String postData(String url, Map<String, String> context, List<String> apps) {
 	    // Create a new HttpClient and Post Header
 	    HttpClient httpclient = new DefaultHttpClient();
 	    HttpPost httppost = new HttpPost(server_name+url);
 	    
-	    Log.i(TAG,"Ola!! Contexto: "+context.get(1));
+	    Log.i(TAG,"Ola!! Contexto: "+context.get("status"));
 	    
 	    try {
 	        // Add your data
-		    StringEntity se = new StringEntity("{\"application\":[\"twitter\"],\"context\":{\"location\":\""+context.get(new Integer(1))+"\",\"status\":\"text\"}}",HTTP.UTF_8);
+		    StringEntity se = new StringEntity("{\"application\":[\"twitter\"],\"context\":{\"location\":\""+context.get("location")+"\",\"status\":\""+context.get("status")+"\"}}",HTTP.UTF_8);
 	    	
 		    httppost.setHeader("Content-Type","application/json;charset=UTF-8");
 	    	httppost.setEntity(se);
