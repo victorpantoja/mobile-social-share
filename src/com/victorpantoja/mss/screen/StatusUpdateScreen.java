@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mobilesocialshare.mss.MSSApi;
 import com.victorpantoja.mss.R;
-import com.victorpantoja.mss.util.Util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -34,6 +34,7 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 	
 	SharedPreferences.Editor editor;
 	SharedPreferences pref;
+	private MSSApi mss;
 
     /** Called when the activity is first created. */
     @Override
@@ -53,7 +54,7 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
         shareTraffic.setOnCheckedChangeListener(checbBoxListener);
         
         WebView apiInformation = (WebView)findViewById(R.id.apiStatusWebView);
-        apiInformation.loadUrl(Util.url_api_information);
+        apiInformation.loadUrl("http://192.168.0.255:9080/status");
     }
     
     private OnCheckedChangeListener checbBoxListener = new OnCheckedChangeListener() {
@@ -105,15 +106,13 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
 	
 
     private void sendLocation(List<String> apps, String location, String status) {
-        
-		String url = Util.url_send_context+"?auth="+auth;
-		
+        		
         Map<String, String> context = new HashMap<String, String>();
         context.put("location", location);
         context.put("status", ""+status);
 		
-		String result = Util.postData(url, context, apps);
-    	
+		String result = mss.sendContext(context, apps, auth);
+		
 		Toast.makeText(getApplicationContext(), "Result: "+result, Toast.LENGTH_SHORT).show();
 	}
     

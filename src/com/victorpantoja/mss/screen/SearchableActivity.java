@@ -17,8 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mobilesocialshare.mss.MSSApi;
 import com.victorpantoja.mss.R;
-import com.victorpantoja.mss.util.Util;
 
 /**
  * @author victor.pantoja
@@ -27,6 +27,8 @@ import com.victorpantoja.mss.util.Util;
 public class SearchableActivity extends Activity {
 	private EditText email;
 	String auth;
+	
+	private MSSApi mss;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,9 +55,8 @@ public class SearchableActivity extends Activity {
    
 	private OnClickListener sendEmailListener = new OnClickListener() {
 	    public void onClick(View v) {
-			String url = Util.url_send_email_envite+"?email="+email.getText().toString()+"&auth="+auth;
 
-			String result = Util.queryRESTurl(url);
+			String result = mss.SendEmailInvite(email.getText().toString(), auth);
 			
 			if(result.equals(""))
 			{

@@ -9,6 +9,8 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mobilesocialshare.mss.MSSApi;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +19,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.victorpantoja.mss.util.Util;
 
 /**
  * @author victor.pantoja
@@ -30,6 +30,8 @@ public class InvitesScreen extends ListActivity {
 	
 	JSONObject json;
 	
+	private MSSApi mss;
+	
     @Override
     public void onResume() {
         super.onResume();
@@ -37,10 +39,8 @@ public class InvitesScreen extends ListActivity {
         Bundle extras = getIntent().getExtras();
         
         auth = extras.getString("auth");
-                
-		String url = Util.url_get_invitations+"?auth="+auth;
-		
-		String result = Util.queryRESTurl(url);
+ 		
+		String result = mss.GetInvitations(auth);
 		ArrayList<String> invites = new ArrayList<String>();
 		
 		if(result.equals(""))

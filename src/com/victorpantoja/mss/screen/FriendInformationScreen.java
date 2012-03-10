@@ -6,9 +6,9 @@ package com.victorpantoja.mss.screen;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mobilesocialshare.mss.MSSApi;
 import com.victorpantoja.mss.R;
 import com.victorpantoja.mss.util.MD5Util;
-import com.victorpantoja.mss.util.Util;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -30,6 +30,7 @@ public class FriendInformationScreen extends Activity implements OnClickListener
 	Button btnAddRemove;
 	Boolean isFriend, isInvite;
 	String username;
+	private MSSApi mss;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,10 +42,8 @@ public class FriendInformationScreen extends Activity implements OnClickListener
         isFriend = extras.getBoolean("isFriend");
         username = extras.getString("username");
         isInvite = extras.getBoolean("isInvite");
-                
-		String url = Util.url_get_user+"?username="+username+"&auth="+auth;
 		
-		String result = Util.queryRESTurl(url);
+		String result = mss.GetUserInformation(username, auth);
 		
 		if(result.equals(""))
 		{
@@ -104,8 +103,7 @@ public class FriendInformationScreen extends Activity implements OnClickListener
     
     private void acceptInvite() {
     	
-		String url = Util.url_accept_invite+"?username="+username+"&auth="+auth;
-		String result = Util.queryRESTurl(url);
+		String result = mss.AcceptInvite(username, auth);
 		
 		if(result.equals(""))
 		{
@@ -132,10 +130,7 @@ public class FriendInformationScreen extends Activity implements OnClickListener
 
 	private void addRemoveFriend(String type) {
 		
-		String url = (type=="add")?Util.url_send_invite:Util.url_remove_friendship;
-				
-		url = url+"?username="+username+"&auth="+auth;
-		String result = Util.queryRESTurl(url);
+		String result = (type=="add")?mss.SendInvite(username, auth):mss.RemoveFriendShip(username, auth);
 		
 		if(result.equals(""))
 		{

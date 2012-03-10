@@ -13,9 +13,9 @@ import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobilesocialshare.mss.MSSApi;
 import com.victorpantoja.mss.R;
 import com.victorpantoja.mss.util.MD5Util;
-import com.victorpantoja.mss.util.Util;
 
 /**
  * @author victor.pantoja
@@ -23,6 +23,7 @@ import com.victorpantoja.mss.util.Util;
  */
 public class MyInformationScreen extends Activity {
 	private String auth = "";
+	private MSSApi mss;
 	
     @Override
     public void onResume() {
@@ -33,10 +34,8 @@ public class MyInformationScreen extends Activity {
         Bundle extras = getIntent().getExtras();
         
         auth = extras.getString("auth");
-                
-		String url = Util.url_get_user+"?auth="+auth;
-		
-		String result = Util.queryRESTurl(url);
+        		
+		String result = mss.GetUserInformation("", auth);
 		
 		if(result.equals(""))
 		{

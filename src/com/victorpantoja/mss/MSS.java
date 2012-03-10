@@ -8,9 +8,9 @@ import java.util.Observer;
 
 import br.rio.puc.inf.lac.mobilis.cms.ContextConsumer;
 
+import com.mobilesocialshare.mss.MSSApi;
 import com.victorpantoja.mss.screen.LoginScreen;
 import com.victorpantoja.mss.screen.MainScreen;
-import com.victorpantoja.mss.util.Util;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -33,6 +33,7 @@ public class MSS extends Activity implements Observer {
 
 	SharedPreferences.Editor editor;
 	SharedPreferences pref;
+	private MSSApi mss;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -54,7 +55,19 @@ public class MSS extends Activity implements Observer {
 			startActivity(new Intent(this,LoginScreen.class));
 		}
 		else{
-			String auth = Util.tryAuthenticate(login, pass);
+			mss = new MSSApi("http://192.168.0.191:9080");
+			Log.d(TAG,"mss instanciado");
+			
+	        try{
+	        	 mss.Initiate();
+	        	 Log.d(TAG,"mss is up!");
+	        }catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+            String auth = mss.Login(login,pass);
+            Log.d(TAG,"user authenticated: "+auth);
+            
 			if(auth.equals("")){
 				Toast.makeText(this, "Wrong User or Password", Toast.LENGTH_SHORT).show();
 				this.editor.putString("pass", "");
@@ -63,7 +76,6 @@ public class MSS extends Activity implements Observer {
 			}
 			else{
 				startTests();
-				//TODO - obter as redes disponiveis
 				Intent mainScreen = new Intent(this,MainScreen.class);
 				mainScreen.putExtra("auth", auth.split(";")[0]);
 				mainScreen.putExtra("invites", Integer.parseInt(auth.split(";")[1]));

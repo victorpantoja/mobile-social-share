@@ -3,9 +3,6 @@
  */
 package com.victorpantoja.mss.screen;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,8 +18,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.mobilesocialshare.mss.MSSApi;
 import com.victorpantoja.mss.R;
-import com.victorpantoja.mss.util.Util;
 
 /**
  * @author victor.pantoja
@@ -34,6 +31,7 @@ public class CreateAccountScreen extends Activity implements OnClickListener{
 	private EditText textLastName, textFirstName, textUsername, email;
 	private ProgressDialog mProgressDlg;
 	private Spinner s;
+	private MSSApi mss;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,10 +63,8 @@ public class CreateAccountScreen extends Activity implements OnClickListener{
 		genders[2] = "O";
 		
 		int position = s.getSelectedItemPosition();
-				
-		String url = Util.url_create_acount+"?username="+textUsername.getText()+"&firstName="+textFirstName.getText()+"&lastName="+textLastName.getText()+"&email="+email.getText()+"&gender="+genders[position];
-		
-		String result = Util.queryRESTurl(url);
+						
+		String result = mss.CreateUser(email.getText().toString(), textLastName.getText().toString(), textFirstName.getText().toString(), textUsername.getText().toString(), genders[position]);
 		
 		if(result.equals(""))
 		{
