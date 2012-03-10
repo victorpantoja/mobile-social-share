@@ -40,6 +40,7 @@ public class InvitesScreen extends ListActivity {
         
         auth = extras.getString("auth");
  		
+        mss = new MSSApi("http://192.168.0.191:9080");
 		String result = mss.GetInvitations(auth);
 		ArrayList<String> invites = new ArrayList<String>();
 		

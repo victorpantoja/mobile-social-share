@@ -43,6 +43,7 @@ public class FriendInformationScreen extends Activity implements OnClickListener
         username = extras.getString("username");
         isInvite = extras.getBoolean("isInvite");
 		
+        mss = new MSSApi("http://192.168.0.191:9080");
 		String result = mss.GetUserInformation(username, auth);
 		
 		if(result.equals(""))
@@ -103,6 +104,7 @@ public class FriendInformationScreen extends Activity implements OnClickListener
     
     private void acceptInvite() {
     	
+    	mss = new MSSApi("http://192.168.0.191:9080");
 		String result = mss.AcceptInvite(username, auth);
 		
 		if(result.equals(""))
@@ -130,6 +132,7 @@ public class FriendInformationScreen extends Activity implements OnClickListener
 
 	private void addRemoveFriend(String type) {
 		
+		mss = new MSSApi("http://192.168.0.191:9080");
 		String result = (type=="add")?mss.SendInvite(username, auth):mss.RemoveFriendShip(username, auth);
 		
 		if(result.equals(""))

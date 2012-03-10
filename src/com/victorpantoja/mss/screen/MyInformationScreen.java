@@ -35,6 +35,7 @@ public class MyInformationScreen extends Activity {
         
         auth = extras.getString("auth");
         		
+        mss = new MSSApi("http://192.168.0.191:9080");
 		String result = mss.GetUserInformation("", auth);
 		
 		if(result.equals(""))

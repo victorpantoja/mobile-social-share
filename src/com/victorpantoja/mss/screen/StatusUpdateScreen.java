@@ -54,7 +54,7 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
         shareTraffic.setOnCheckedChangeListener(checbBoxListener);
         
         WebView apiInformation = (WebView)findViewById(R.id.apiStatusWebView);
-        apiInformation.loadUrl("http://192.168.0.255:9080/status");
+        apiInformation.loadUrl("http://192.168.0.191:9080/status");
     }
     
     private OnCheckedChangeListener checbBoxListener = new OnCheckedChangeListener() {
@@ -111,6 +111,7 @@ public class StatusUpdateScreen extends Activity implements OnClickListener {
         context.put("location", location);
         context.put("status", ""+status);
 		
+        mss = new MSSApi("http://192.168.0.191:9080");
 		String result = mss.sendContext(context, apps, auth);
 		
 		Toast.makeText(getApplicationContext(), "Result: "+result, Toast.LENGTH_SHORT).show();

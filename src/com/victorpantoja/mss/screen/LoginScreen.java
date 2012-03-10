@@ -59,6 +59,7 @@ public class LoginScreen  extends Activity
 	private OnClickListener loginListener = new OnClickListener() {
 	    public void onClick(View v) {
 	    	
+	    	mss = new MSSApi("http://192.168.0.191:9080");
 	    	String auth = mss.Login(textNome.getText().toString(), textPass.getText().toString());
 	    	
 			SharedPreferences pref = getSharedPreferences("MOBILESOCIALSHARE", MODE_PRIVATE);

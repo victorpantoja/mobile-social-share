@@ -64,6 +64,7 @@ public class CreateAccountScreen extends Activity implements OnClickListener{
 		
 		int position = s.getSelectedItemPosition();
 						
+		mss = new MSSApi("http://192.168.0.191:9080");
 		String result = mss.CreateUser(email.getText().toString(), textLastName.getText().toString(), textFirstName.getText().toString(), textUsername.getText().toString(), genders[position]);
 		
 		if(result.equals(""))

@@ -56,6 +56,7 @@ public class SearchableActivity extends Activity {
 	private OnClickListener sendEmailListener = new OnClickListener() {
 	    public void onClick(View v) {
 
+	    	mss = new MSSApi("http://192.168.0.191:9080");
 			String result = mss.SendEmailInvite(email.getText().toString(), auth);
 			
 			if(result.equals(""))
