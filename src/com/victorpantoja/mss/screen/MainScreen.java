@@ -34,7 +34,7 @@ public class MainScreen extends TabActivity{
 		invites = extras.getInt("invites");
 		
 		if(!auth.equals("")){
-			//TODO - try authticating user...
+			//TODO - try authticating user
 		}
 		
 		if(invites > 0){
@@ -44,11 +44,11 @@ public class MainScreen extends TabActivity{
 		Intent status = new Intent(this,StatusUpdateScreen.class);
 		status.putExtra("auth", auth);
 		
-		Intent places = new Intent(this,MyPlacesScreen.class);
-		places.putExtra("auth", auth);
-		
 		Intent friends = new Intent(this,FriendsScreen.class);
 		friends.putExtra("auth", auth);
+		
+		Intent friendsSuggestions = new Intent(this,FriendsSuggestionsScreen.class);
+		friendsSuggestions.putExtra("auth", auth);
 		
 		Intent me = new Intent(this,MyInformationScreen.class);
 		me.putExtra("auth", auth);
@@ -60,14 +60,14 @@ public class MainScreen extends TabActivity{
 		tabHost.addTab(tabHost.newTabSpec("tab1")
 				.setIndicator("Status")
 				.setContent(status));
-
-		tabHost.addTab(tabHost.newTabSpec("tab2")
-				.setIndicator("My Places")
-				.setContent(places));
 		
-		tabHost.addTab(tabHost.newTabSpec("tab3")
+		tabHost.addTab(tabHost.newTabSpec("tab2")
 				.setIndicator("Friends")
 				.setContent(friends));
+		
+		tabHost.addTab(tabHost.newTabSpec("tab3")
+				.setIndicator("Suggestions")
+				.setContent(friendsSuggestions));
 		
 		tabHost.addTab(tabHost.newTabSpec("tab4")
 				.setIndicator("Me")
